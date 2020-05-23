@@ -2,8 +2,8 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 
-const authRouter = require("../routes/auth/auth-router.js");
-const recipesRouter = require("../routes/recipes/recipes-router.js");
+const authRouter = require("../auth/auth-router.js");
+const recipesRouter = require("../recipes/recipes-router.js");
 
 const server = express();
 

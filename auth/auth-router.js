@@ -1,19 +1,19 @@
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
 const router = require("express").Router();
 
 const Users = require("./authModel.js");
 
-const { validCredentials } = require("./middleware/authMiddleware.js");
+const { 
+  validCredentials,
+  secureCredentials,
+  compareValues,
+  createToken
+} = require("../middleware/authMiddleware.js");
 
 router.post('/register', (req, res) => {
   const credentials = req.body;
 
   if(validCredentials(credentials)){
-  const rounds = process.env.BCRYPT_ROUNDS || 5;
-  const hash = bcryptjs.hashSync(credentials.password, rounds);
-  credentials.password = hash;
+  secureCredentials(credentials)
 
   Users.add(credentials)
   .then(user => {
@@ -33,7 +33,7 @@ router.post("/login", (req, res) => {
   if(validCredentials(req.body)){
     Users.findBy({ username })
     .then(([user]) =>{
-      if(user && bcryptjs.compareSync(password, user.password)){
+      if(user && compareValues(password, user.password)){
         const token = createToken(user);
         res.status(200).json({ message: "Welcome to our api", token })
       } else {
@@ -48,19 +48,5 @@ router.post("/login", (req, res) => {
   }
 });
 
-function createToken(user){
-  const payload = {
-    sub: user.id,
-    username: user.name,
-  };
-
-  const secret = "secret";
-
-  const options = {
-    expiresIn: "1d",
-  };
-
-  return jwt.sign(payload, secret, options);
-}
 
 module.exports = router;
