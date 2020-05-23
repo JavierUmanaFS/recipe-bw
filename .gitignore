@@ -5,7 +5,6 @@
 package-lock.json
 
 # Removes database
-recipe.db3
 
 # Logs
 logs
