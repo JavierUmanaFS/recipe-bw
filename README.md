@@ -4,89 +4,77 @@
 
 _https://essentialism-pg-be.herokuapp.com/_
 
+** Status Codes
+>200 Successful
+
+>400 Bad Request
+
+>401 Unauthorized
+
+>404 Not Found
+
+>500 Server Error
+
 ### POST to _/api/auth/register_ expects:
 
 ```json
 {
-  "email": "email",
-  "password": "password",
-  "name": "<OPTIONAL>"
+  "username": "username",
+  "password": "password"
 }
 ```
+> Returns message
 
 ### POST to _/api/auth/login_ expects:
 
 ```json
 {
-  "email": "email",
+  "username": "email",
   "password": "password"
 }
 ```
 
-> those endpoints return the JWT.
+> Returns message, token and user_id.
 
-> the JWT is required to access all other endpoints
 
-## The following endpoints require a JWT (axiosWithAuth())
+## The following endpoints require a JWT => axiosWithAuth( ) 
 
-### GET to _/api/values_
+### GET to _/api/recipes_
 
-> returns a _**list of values**_
+> Returns _**all recipes**_
 
-### POST to _/api/user_values/:id_
+### GET to _/api/recipes/my-recipes_
 
-> id must be the user id
+> Returns  _**recipes tied to the user logged in**_
 
-expects:
 
-```json
-{
-  "values": [
-    {
-      "values_id": 10,
-      "description": "some text here"
-    },
-    {
-      "values_id": 3,
-      "description": "some text here"
-    },
-    {
-      "values_id": 1,
-      "description": "some text here"
-    }
-  ]
-}
-```
+### GET to _/api/recipes/:id_
 
-### GET to _/api/user_values/:id_
+> id of the recipe you want
 
-> id must be the user id
+> returns recipe linked to that recipe_id
 
-> returns list of values pertaining to a user, user must have created values first
-
-### GET to _/api/projects/user/:id_
-
-> id must be the user id
-
-> returns list of projects pertaining to that user with
-
-### POST to _/api/projects_
+### POST to _/api/recipes_
 
 expects:
 
 ```json
 {
-  "title": "CREATIVTY todo",
-  "body": "A CREATIVE TODO BODY",
-  "user_values_id": "1"
+    "title": "title",
+    "source": "source",
+    "ingredients": "ingredients",
+    "instructions": "instructions",
+    "category": "category"
 }
 ```
 
-> user_values_id pertains to the values_id of the value the project will be attached to
+> There will be pre-determined categories
 
-### PUT to _/api/projects/:id_
+> Maybe a drop down ?
 
-> id must be the project_id
+### PUT to _/api/recipes/:id_
+
+> id must be the recipe_id
 
 expects:
 
@@ -97,6 +85,6 @@ expects:
 }
 ```
 
-### DELETE to _/api/projects/:id_
+### DELETE to _/api/recipes/:id_
 
-> id must be the project_id
+> id must be the recipe_id

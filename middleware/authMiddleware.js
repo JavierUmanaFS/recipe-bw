@@ -6,8 +6,7 @@ module.exports = {
   secureCredentials,
   compareValues,
   createToken,
-
-
+  restricted,
 };
 
 function validCredentials(user){
@@ -38,3 +37,21 @@ function createToken(user){
 
   return jwt.sign(payload, secret, options);
 }
+
+function restricted(req, res, next){
+  const token = req.headers.authorization;
+  const secret = process.env.TOKEN_SECRET || "secret";
+
+  if(token){
+    jwt.verify(token, secret, (error, decodedToken) => {
+      if(error){
+        res.status(401).json({ message: "Log in to continue"});
+      } else {
+        req.jwt = decodedToken;
+        next();
+      };
+    });
+  } else {
+    res.status(400).json({ message: "Please provide the authentication information"});
+  };
+};
