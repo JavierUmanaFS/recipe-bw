@@ -10,26 +10,44 @@ const {
   createToken
 } = require("../middleware/authMiddleware.js");
 
-router.post('/register', (req, res) => {
+// router.post('/register', (req, res) => {
+//   const credentials = req.body;
+
+//   if(validCredentials(credentials) ){
+//      secureCredentials(credentials)
+//   Users.add(credentials)
+//   .then(user => {
+//     console.log(user, "LOOKING FOR u")
+//     if(user) {
+//     res.status(201).json({ message: `Account created for user ${user.username}, please log in to continue`});
+//     } else {
+// res.status(404).json({ message: "Not sure whats going on"})
+//     }
+    
+//   })
+//   .catch(error => {
+//     res.status(500).json({ errorMessage: error.message})
+//   });
+// } else {
+//   res.status(400).json({ message: "Please provide username and password."})
+// }
+// });
+
+router.post("/register", (req, res) => {
   const credentials = req.body;
 
-  if(validCredentials(credentials) && secureCredentials(credentials)){
-     
-  Users.add(credentials)
-  .then(user => {
-    if(user) {
-    res.status(201).json({ message: `Account created for user ${user.username}, please log in to continue`});
-    } else {
-res.status(404).json({ message: "Not sure whats going on"})
-    }
-    
+  if(validCredentials(credentials)){
+     secureCredentials(credentials)
+   Users.add(credentials)
+   .then(() => {
+    res.status(201).json({ message: "Success!" })  
   })
   .catch(error => {
     res.status(500).json({ errorMessage: error.message})
   });
-} else {
-  res.status(400).json({ message: "Please provide username and password."})
-}
+  } else {
+    res.status(400).json({ message: "Invalid credentials"})
+  }
 });
 
 router.post("/login", (req, res) => {
