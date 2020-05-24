@@ -17,8 +17,12 @@ router.post('/register', (req, res) => {
      
   Users.add(credentials)
   .then(user => {
-    res.status(201)
-    .json({ message: `Account created for user ${user.username}, please log in to continue`});
+    if(user) {
+    res.status(201).json({ message: `Account created for user ${user.username}, please log in to continue`});
+    } else {
+res.status(404).json({ message: "Not sure whats going on"})
+    }
+    
   })
   .catch(error => {
     res.status(500).json({ errorMessage: error.message})
