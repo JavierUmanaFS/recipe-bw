@@ -2,7 +2,7 @@
 
 ### Base Url:
 
-_https://essentialism-pg-be.herokuapp.com/_
+_https://bw-secret-recipe.herokuapp.com/_
 
 ** Status Codes
 >200 Successful

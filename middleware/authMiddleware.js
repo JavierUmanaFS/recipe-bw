@@ -2,6 +2,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 
+const secret = process.env.TOKEN_SECRET || "secret";
 
 module.exports = {
   validCredentials,
@@ -44,7 +45,7 @@ function createToken(user){
     username: user.name,
   };
 
-  const secret = process.env.TOKEN_SECRET || "secret";
+  
 
   const options = {
     expiresIn: "1d",
@@ -55,7 +56,6 @@ function createToken(user){
 
 function restricted(req, res, next){
   const token = req.headers.authorization;
-  const secret = process.env.TOKEN_SECRET || "secret";
 
   if(token){
     jwt.verify(token, secret, (error, decodedToken) => {
