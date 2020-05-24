@@ -15,7 +15,7 @@ server.use(express.json());
 server.use("/api/auth", authRouter);
 server.use("/api/recipes", recipesRouter);
 
-server.get("/api/tester", (req, res) =>{
+server.get("/", (req, res) =>{
   res.json({ api: "test running"});
 });
 
