@@ -13,9 +13,8 @@ const {
 router.post('/register', (req, res) => {
   const credentials = req.body;
 
-  if(validCredentials(credentials)){
-     secureCredentials(credentials)
-
+  if(validCredentials(credentials) && secureCredentials(credentials)){
+     
   Users.add(credentials)
   .then(user => {
     res.status(201)
