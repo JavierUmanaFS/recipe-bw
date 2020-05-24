@@ -1,11 +1,12 @@
 require("dotenv").config();
+const bcryptjs = require("bcryptjs");
 const router = require("express").Router();
 
 const Users = require("./authModel.js");
 
 const { 
   validCredentials,
-  compareValues,
+  // compareValues,
   createToken,
   validateRegistration
 } = require("../middleware/authMiddleware.js");
@@ -41,7 +42,7 @@ router.post("/register", validateRegistration, (req, res) => {
     res.status(201).json({ message: "Success!", res: response});
   })
   .catch(error => {
-    res.status(500).json({ errorMessage: error.message })
+    res.status(500).json({ errorMessage: error.message, errormsg: " THIS IS WHAT IM GETTING ?" })
   }) 
 });
 
@@ -65,7 +66,7 @@ router.post("/login", (req, res) => {
   if(validCredentials(req.body)){
     Users.findBy({ username })
     .then(([user]) =>{
-      if(user && compareValues(password, user.password)){
+      if(user && bcryptjs.compareSync(password, user.password)){
         const token = createToken(user);
         res.status(200)
         .json({ message: `Welcome ${user.username}`, 

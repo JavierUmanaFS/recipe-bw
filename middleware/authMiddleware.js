@@ -6,7 +6,7 @@ const secret = process.env.TOKEN_SECRET || "secret";
 
 module.exports = {
   validCredentials,
-  compareValues,
+  // compareValues,
   createToken,
   restricted,
   validateRegistration
@@ -35,9 +35,9 @@ function validateRegistration(req, res, next){
 //   credentials.password = hash; 
 // }
 
-function compareValues(inputValue, findByValue){
-  return bcryptjs.compareSync(inputValue, findByValue)
-}
+// function compareValues(inputValue, findByValue){
+//   return bcryptjs.compareSync(inputValue, findByValue)
+// }
 
 function createToken(user){
   const payload = {
