@@ -42,7 +42,7 @@ router.post("/register", validateRegistration, (req, res) => {
     res.status(201).json({ message: "Success!", res: response});
   })
   .catch(error => {
-    res.status(500).json({ errorMessage: error.message, errormsg: " THIS IS WHAT IM GETTING ?" })
+    res.status(404).json({ errorMessage: error.message, errormsg: " THIS IS WHAT IM GETTING ?" })
   }) 
 });
 
