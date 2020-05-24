@@ -2,16 +2,31 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 
+const rounds = process.env.BCRYPT_ROUNDS || 5;
+
 module.exports = {
   validCredentials,
   secureCredentials,
   compareValues,
   createToken,
   restricted,
+  validateRegistration
 };
 
 function validCredentials(user){
   return Boolean(user.username && user.password && typeof user.password === "string");
+}
+
+function validateRegistration(req, res, next){
+  if(req.body.username === undefined || req.body.password === undefined){
+    res.status(400).json({ message: "Invalid Form."})
+  } else {
+    req.user = {
+      username: req.body.username,
+      password: bcryptjs.hashSync(req.body.password, rounds)
+    }
+    next();
+  }
 }
 
 function secureCredentials(credentials){

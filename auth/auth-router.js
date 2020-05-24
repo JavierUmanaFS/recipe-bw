@@ -7,7 +7,8 @@ const {
   validCredentials,
   secureCredentials,
   compareValues,
-  createToken
+  createToken,
+  validateRegistration
 } = require("../middleware/authMiddleware.js");
 
 // router.post('/register', (req, res) => {
@@ -33,23 +34,30 @@ const {
 // }
 // });
 
-router.post("/register", (req, res) => {
-  const credentials = req.body;
-
-  if(validCredentials(credentials)){
-     secureCredentials(credentials)
-   Users.add(credentials)
-   .then(() => {
-    res.status(201).json({ message: "Success!" })  
+router.post("/register", validateRegistration, (req, res) => {
+  Users.add(req.user)
+  .then(() => {
+    res.status(201).json({ message: "Success!"});
   })
   .catch(error => {
-    res.status(500).json({ errorMessage: error.message})
-  });
-  } else {
-    res.status(400).json({ message: "Invalid credentials"})
-  }
+    res.status(500).json({ errorMessage: error.message })
+  }) 
 });
 
+// const credentials = req.body;
+
+//   if(validCredentials(credentials)){
+//      secureCredentials(credentials)
+//    Users.add(credentials)
+//    .then(() => {
+//     res.status(201).json({ message: "Success!" })  
+//   })
+//   .catch(error => {
+//     res.status(500).json({ errorMessage: error.message})
+//   });
+//   } else {
+//     res.status(400).json({ message: "Invalid credentials"})
+//   }
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
