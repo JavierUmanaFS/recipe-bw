@@ -17,7 +17,7 @@ function add(newRecipe){
 function getAll(){
   return db("recipes as r")
   .join("categories as c", "r.category_id", "c.id")
-  .select("r.id","r.title", "r.source", "r.ingredients", "r.instructions", "c.category", "r.user_id")
+  .select("r.id as recipe_id", "r.user_id", "r.title", "r.source", "r.ingredients", "r.instructions", "c.category" )
 }
 
 function getAllUserRecipe(jwt_id){
@@ -31,7 +31,7 @@ function getAllUserRecipe(jwt_id){
 function getByRecipeId(id){
   return db("recipes as r")
   .join("categories as c", "r.category_id", "c.id")
-  .select("r.id", "r.title", "r.source", "r.ingredients", "r.instructions", "c.category")
+  .select("r.id as recipe_id", "r.title", "r.source", "r.ingredients", "r.instructions", "c.category")
   .where("r.id", id)
 }
 

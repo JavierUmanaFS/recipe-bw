@@ -1,6 +1,5 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const bcryptjs = require("bcryptjs");
 
 
 const { jwtSecret } = require("../data/jwtConfig.js");
@@ -8,46 +7,18 @@ const { jwtSecret } = require("../data/jwtConfig.js");
 
 module.exports = {
   validCredentials,
-  // compareValues,
   createToken,
-  restricted,
-  // validateRegistration
+  restricted
 };
 
 function validCredentials(user){
   return Boolean(user.username && user.password && typeof user.password === "string");
 }
-
-// function validateRegistration(req, res, next){
-//   const rounds = process.env.BCRYPT_ROUNDS || 5;
-//   if(req.body.username === undefined || req.body.password === undefined){
-//     res.status(400).json({ message: "Invalid Form."})
-//   } else {
-//     req.user = {
-//       username: req.body.username,
-//       password: bcryptjs.hashSync(req.body.password, rounds)
-//     }
-//     next();
-//   }
-// }
-
-// function secureCredentials(credentials){
-//   const rounds = process.env.BCRYPT_ROUNDS || 5;
-//   const hash = bcryptjs.hashSync(credentials.password, rounds);
-//   credentials.password = hash; 
-// }
-
-// function compareValues(inputValue, findByValue){
-//   return bcryptjs.compareSync(inputValue, findByValue)
-// }
-
 function createToken(user){
   const payload = {
     user_id: user.id,
     username: user.name,
   };
-
-
   const options = {
     expiresIn: "8h",
   };
@@ -59,7 +30,7 @@ function restricted(req, res, next){
   const token = req.headers.authorization;
 
   if(token){
-    jwt.verify(token, secret, (error, decodedToken) => {
+    jwt.verify(token, jwtSecret, (error, decodedToken) => {
       if(error){
         res.status(401).json({ message: "Log in to continue"});
       } else {
