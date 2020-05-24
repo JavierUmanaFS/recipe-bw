@@ -5,7 +5,6 @@ const Users = require("./authModel.js");
 
 const { 
   validCredentials,
-  secureCredentials,
   compareValues,
   createToken,
   validateRegistration
@@ -35,9 +34,11 @@ const {
 // });
 
 router.post("/register", validateRegistration, (req, res) => {
+  console.log(req.user)
   Users.add(req.user)
-  .then(() => {
-    res.status(201).json({ message: "Success!"});
+  .then(response => {
+    console.log(response)
+    res.status(201).json({ message: "Success!", res: response});
   })
   .catch(error => {
     res.status(500).json({ errorMessage: error.message })
