@@ -2,32 +2,34 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 
-const secret = process.env.TOKEN_SECRET || "secret";
+
+const { jwtSecret } = require("../data/jwtConfig.js");
+
 
 module.exports = {
   validCredentials,
   // compareValues,
   createToken,
   restricted,
-  validateRegistration
+  // validateRegistration
 };
 
 function validCredentials(user){
   return Boolean(user.username && user.password && typeof user.password === "string");
 }
 
-function validateRegistration(req, res, next){
-  const rounds = process.env.BCRYPT_ROUNDS || 5;
-  if(req.body.username === undefined || req.body.password === undefined){
-    res.status(400).json({ message: "Invalid Form."})
-  } else {
-    req.user = {
-      username: req.body.username,
-      password: bcryptjs.hashSync(req.body.password, rounds)
-    }
-    next();
-  }
-}
+// function validateRegistration(req, res, next){
+//   const rounds = process.env.BCRYPT_ROUNDS || 5;
+//   if(req.body.username === undefined || req.body.password === undefined){
+//     res.status(400).json({ message: "Invalid Form."})
+//   } else {
+//     req.user = {
+//       username: req.body.username,
+//       password: bcryptjs.hashSync(req.body.password, rounds)
+//     }
+//     next();
+//   }
+// }
 
 // function secureCredentials(credentials){
 //   const rounds = process.env.BCRYPT_ROUNDS || 5;
@@ -45,13 +47,12 @@ function createToken(user){
     username: user.name,
   };
 
-  
 
   const options = {
-    expiresIn: "1d",
+    expiresIn: "8h",
   };
 
-  return jwt.sign(payload, secret, options);
+  return jwt.sign(payload, jwtSecret, options);
 }
 
 function restricted(req, res, next){
