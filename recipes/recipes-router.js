@@ -4,7 +4,7 @@ const Recipes = require("./recipesModel.js");
 
 const { restricted } = require("../middleware/authMiddleware.js");
 
-const {} = require("../middleware/recipeMiddleware.js")
+const { formatCategory } = require("../middleware/recipeMiddleware.js")
 
 router.use(restricted);
 
@@ -43,7 +43,7 @@ router.get("/:id", (req, res) =>{
   })
 })
 
-router.post("/", (req, res) => {
+router.post("/", formatCategory, (req, res) => {
   const user_id = req.jwt.user_id;
   const newRecipe = ({
     ...req.body,

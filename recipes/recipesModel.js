@@ -43,3 +43,7 @@ function update(id, changes){
 function remove(id){
   return db("recipes as r").where("id", id).del();
 }
+
+// function addCategory(user_id, newCategory){
+//   9
+// }

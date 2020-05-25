@@ -11,8 +11,8 @@ exports.up = function(knex) {
 
   .createTable("categories", category => {
     category.increments();
-    category.string("category", 255)
-    .notNullable();
+    category.integer("user_id").unsigned().references("users.id");
+    category.string("category", 255).notNullable();
   })
 
   .createTable("recipes", recipes =>{
