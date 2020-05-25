@@ -19,9 +19,8 @@ router.get("/", (req, res) => {
 })
 
 router.get("/my-recipes", (req, res) =>{
-  const id = req.jwt.user_id;
 
-  Recipes.getAllUserRecipe(id)
+  Recipes.getAllUserRecipe(req.jwt.user_id)
   .then(recipes => {
     // console.log(recipes)
     res.status(200).json(recipes);
@@ -46,7 +45,7 @@ router.get("/:id", (req, res) =>{
 
 router.post("/", (req, res) => {
   const newRecipe = req.body;
-        req.jwt.user_id = newRecipe.user_id;
+      newRecipe.body.user_id =  req.jwt.user_id;
   Recipes.add(newRecipe)
   .then(([response]) => {
     console.log(response)
