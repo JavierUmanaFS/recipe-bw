@@ -15,7 +15,7 @@ module.exports = {
   } else if(req.body.category == "vegan"){
    return req.body.category === 3
   } else {
-    db("categories").insert(req.body.category)
+    db("categories").insert(req.body.category, "category")
     next();
   }
    }else {
