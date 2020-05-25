@@ -66,7 +66,7 @@ router.post("/", formatCategory, (req, res) => {
     }
   })
   .catch(error => {
-    res.status(500).json({ errorMessage: error.message })
+    res.status(500).json({ errorMessage: error.message, message: "ITS ME" })
   })
 })
 

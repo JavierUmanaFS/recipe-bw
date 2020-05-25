@@ -7,7 +7,8 @@ module.exports = {
 };
 
  function formatCategory(req, res, next){
-    if(req.body.category == "italian") {
+   if(req.body.category){
+  if(req.body.category == "italian") {
      req.body.category === 1
     next();
   } else if (req.body.category == "american") {
@@ -20,4 +21,7 @@ module.exports = {
     db("categories").insert(req.body.category)
     next();
   }
+   }else {
+     res.status(400).json({ message: "WHAT ARE U DOINH"})
+   }
 }
