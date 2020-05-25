@@ -45,7 +45,7 @@ router.get("/:id", (req, res) =>{
 
 router.post("/", (req, res) => {
   const newRecipe = req.body;
-      newRecipe.body.user_id =  req.jwt.user_id;
+       req.jwt.user_id = newRecipe.body.user_id;
   Recipes.add(newRecipe)
   .then(([response]) => {
     console.log(response)
