@@ -7,13 +7,13 @@ module.exports = {
 };
 
  function formatCategory(req, res, next){
-    if(req.body.category === "italian") {
-    req.body.category === 1
+    if(req.body.category == "italian") {
+     req.body.category === 1
     next();
-  } else if (req.body.category === "american") {
+  } else if (req.body.category == "american") {
     req.body.category === 2
     next();
-  } else if(req.body.category === "vegan"){
+  } else if(req.body.category == "vegan"){
     req.body.category === 3
     next();
   } else {
