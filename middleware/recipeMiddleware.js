@@ -1,30 +1,20 @@
 
 const db = require("../data/dbConfig.js");
 
+const Recipes = require("../recipes/recipesModel.js");
+
 module.exports = {
-  // formatCategory,
+  getByCategory,
 
 };
 
-
-// function checkCategory(newRecipe){
-//   if(newRecipe.category === typeof "string"){
-//     if(newRecipe.category == "italian"){
-//       return newRecipe.category = 1;
-//     } else if(newRecipe.category == "american"){
-//       return newRecipe.category = 2;
-//     } else if(newRecipe.category == "vegan"){
-//       return newRecipe.category = 3;
-//     }
-// 
-
-
-// function formatCategory(req, res, next){
-//   const data = req.body;
-//   if(data.category !== typeof "string" &&
-//    data.category <= 3 && data.category >= 0){
-//     next();
-//   } else {
-    
-//   }
-// }
+function getByCategory (req, res, next) {
+  const { category } = req.query;
+  if(category){
+    Recipes.findByCategory(category)
+  .then(recipes => res.status(200).json(recipes))
+  .catch(error => res.status(500).json({ message: error}))
+  } else {
+    next();
+  }
+}

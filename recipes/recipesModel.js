@@ -5,6 +5,7 @@ module.exports = {
   getAllUserRecipe,
   getByRecipeId,
   add,
+  findByCategory,
   update,
   remove
 };
@@ -14,6 +15,10 @@ function add(newRecipe){
   return db("recipes as r").insert(newRecipe)
   .where("r.user_id", newRecipe.user_id)
   }
+
+function findByCategory(category){
+  return db("recipes").where("category",category);
+}
 
 function getAll(){
   return db("recipes as r")

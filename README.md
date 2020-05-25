@@ -43,16 +43,23 @@ _https://bw-secret-recipe.herokuapp.com/_
 
 > Returns _**all recipes**_
 
+### GET to _`/api/recipes?category=${categoryName}`_
+
+> Returns all recipes with that category name
+
+
 ### GET to _/api/recipes/my-recipes_
 
 > Returns  _**recipes tied to the user logged in**_
+
 
 
 ### GET to _/api/recipes/:id_
 
 > id of the recipe you want
 
-> returns recipe linked to that recipe_id
+> Returns recipe linked to that recipe_id
+
 
 ### POST to _/api/recipes_
 
@@ -68,9 +75,6 @@ expects:
 }
 ```
 
-> There will be pre-determined categories
-
-> Maybe a drop down ?
 
 ### PUT to _/api/recipes/:id_
 
@@ -80,8 +84,11 @@ expects:
 
 ```json
 {
-  "title": "CREATIVTY todo",
-  "body": "A CREATIVE TODO BODY"
+  "title": "title",
+  "source": "source",
+  "ingredients" : "ingredients",
+  "instructions" : "instruction",
+  "category":"category"
 }
 ```
 

@@ -4,11 +4,11 @@ const Recipes = require("./recipesModel.js");
 
 const { restricted } = require("../middleware/authMiddleware.js");
 
-// const { formatCategory } = require("../middleware/recipeMiddleware.js")
+const { getByCategory } = require("../middleware/recipeMiddleware.js")
 
 router.use(restricted);
 
-router.get("/", (req, res) => {
+router.get("/", getByCategory, (req, res) => {
   Recipes.getAll()
   .then(recipes => {
     res.status(200).json({ recipes });
