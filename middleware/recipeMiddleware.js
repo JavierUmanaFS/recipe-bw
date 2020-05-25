@@ -6,8 +6,7 @@ module.exports = {
 
 };
 
-async function formatCategory(req, res, next){
-  try {
+ function formatCategory(req, res, next){
     if(req.body.category === "italian") {
     req.body.category === 1
     next();
@@ -18,11 +17,7 @@ async function formatCategory(req, res, next){
     req.body.category === 3
     next();
   } else {
-    await db("categories").insert(req.body.category)
+    db("categories").insert(req.body.category)
     next();
   }
-  } catch (error) {
-    throw error;
-  }
-  
 }
