@@ -9,19 +9,17 @@ module.exports = {
  function formatCategory(req, res, next){
    if(req.body.category){
   if(req.body.category == "italian") {
-     req.body.category === 1
-    next();
+    return req.body.category === 1
   } else if (req.body.category == "american") {
-    req.body.category === 2
-    next();
+    return req.body.category === 2
   } else if(req.body.category == "vegan"){
-    req.body.category === 3
-    next();
+   return req.body.category === 3
   } else {
     db("categories").insert(req.body.category)
     next();
   }
    }else {
      res.status(400).json({ message: "WHAT ARE U DOINH"})
+     next();
    }
 }
