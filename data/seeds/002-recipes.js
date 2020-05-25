@@ -4,15 +4,15 @@ exports.seed = function(knex) {
 
         {user_id: 1, title: 'chicken  soup', 
         source:"mama", ingredients:"eggs", 
-        instructions:"crack eggs", category_id : 2}, 
+        instructions:"crack eggs", category : "indian"}, 
 
         {user_id: 3, title: 'noodle', 
         source:"mama", ingredients:"eggs", 
-        instructions:"crack eggs", category_id : 1}, 
+        instructions:"crack eggs", category : "mexican"}, 
 
         {user_id: 2, title: 'soup', 
         source:"granny", ingredients:"sauce", 
-        instructions:"crack sauce", category_id : 3}
+        instructions:"crack sauce", category: "american"}
         
       ]);
 };

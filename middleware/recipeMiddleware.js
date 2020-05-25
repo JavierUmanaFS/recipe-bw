@@ -2,27 +2,29 @@
 const db = require("../data/dbConfig.js");
 
 module.exports = {
-  formatCategory,
+  // formatCategory,
 
 };
 
- function formatCategory(req, res, next){
-   if(req.body.category){
-  if(req.body.category == "italian") {
-     req.body.category === 1
-     next();
-  } else if (req.body.category == "american") {
-     req.body.category === 2
-    next();
-  } else if(req.body.category == "vegan"){
-    req.body.category === 3
-   next();
-  } else {
-    db("categories").insert(req.body.category, "category")
-    next();
-  }
-   }else {
-     res.status(400).json({ message: "WHAT ARE U DOINH"})
-     next();
-   }
-}
+
+// function checkCategory(newRecipe){
+//   if(newRecipe.category === typeof "string"){
+//     if(newRecipe.category == "italian"){
+//       return newRecipe.category = 1;
+//     } else if(newRecipe.category == "american"){
+//       return newRecipe.category = 2;
+//     } else if(newRecipe.category == "vegan"){
+//       return newRecipe.category = 3;
+//     }
+// 
+
+
+// function formatCategory(req, res, next){
+//   const data = req.body;
+//   if(data.category !== typeof "string" &&
+//    data.category <= 3 && data.category >= 0){
+//     next();
+//   } else {
+    
+//   }
+// }
