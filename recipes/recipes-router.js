@@ -49,9 +49,6 @@ router.post("/", (req, res) => {
     ...req.body,
     user_id
   })
-  console.log(newRecipe, " NEW RECIPE")
-  console.log(user_id, " USER ID")
-  console.log(req.jwt, "JWT")
   Recipes.add(newRecipe)
   .then(([response]) => {
     console.log(response)
