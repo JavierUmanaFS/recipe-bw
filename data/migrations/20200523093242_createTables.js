@@ -17,6 +17,7 @@ exports.up = function(knex) {
     recipes.string("ingredients", 255).notNullable();
     recipes.string("instructions", 355).notNullable();
     recipes.string("category", 255).notNullable();
+    recipes.string("recipeImage", 550);
   })
 };
 

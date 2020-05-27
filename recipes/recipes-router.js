@@ -1,9 +1,6 @@
 const router = require("express").Router();
-
 const Recipes = require("./recipesModel.js");
-
 const { restricted } = require("../middleware/authMiddleware.js");
-
 const { getByCategory } = require("../middleware/recipeMiddleware.js")
 
 router.use(restricted);
@@ -44,18 +41,15 @@ router.get("/:id", (req, res) =>{
 })
 
 router.post("/", (req, res) => {
-  const user_id = req.jwt.user_id;
-  const newRecipe = ({
+  const newRecipe = {
     ...req.body,
-    user_id
-  })
+    user_id: req.jwt.user_id
+  };
   Recipes.add(newRecipe)
   .then(([response]) => {
-    console.log(response)
     if(response) {
     Recipes.getByRecipeId(response)
      .then(response => {
-       console.log(response)
      res.status(200).json(response)
     })
     .catch(error => {

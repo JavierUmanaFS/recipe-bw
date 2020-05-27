@@ -22,20 +22,20 @@ function findByCategory(category){
 
 function getAll(){
   return db("recipes as r")
-  .select("r.id as recipe_id", "r.user_id", "r.title", "r.source", "r.ingredients", "r.instructions", "r.category" )
+  .select("r.id as recipe_id", "r.user_id", "r.title", "r.source", "r.ingredients", "r.instructions", "r.category", "r.recipeImage" )
 }
 
 function getAllUserRecipe(jwt_id){
   return db("recipes as r")
   .join("users as u", "u.id", "r.user_id")
-  .select("r.title", "r.source", "r.ingredients", "r.instructions", "r.category","r.user_id")
+  .select("r.title", "r.source", "r.ingredients", "r.instructions", "r.category","r.user_id", "r.recipeImage")
   .where("r.user_id", jwt_id)
 }
 
 function getByRecipeId(id){
   return db("recipes as r")
   .join("users as u", "u.id","r.user_id")
-  .select("u.id as user_id","r.id as recipe_id", "r.title", "r.source", "r.ingredients", "r.instructions", "r.category")
+  .select("u.id as user_id","r.id as recipe_id", "r.title", "r.source", "r.ingredients", "r.instructions", "r.category", "r.recipeImage")
   .where("r.id", id)
 }
 
