@@ -28,7 +28,7 @@ function getAll(){
 function getAllUserRecipe(jwt_id){
   return db("recipes as r")
   .join("users as u", "u.id", "r.user_id")
-  .select("r.user_id", "r.id as recipe_id","r.title", "r.source", "r.ingredients", "r.instructions", "r.category",, "r.recipeImage")
+  .select("r.user_id", "r.id as recipe_id","r.title", "r.source", "r.ingredients", "r.instructions", "r.category", "r.recipeImage")
   .where("r.user_id", jwt_id)
 }
 
