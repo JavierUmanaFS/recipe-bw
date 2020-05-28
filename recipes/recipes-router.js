@@ -28,7 +28,7 @@ router.get("/my-recipes", (req, res) =>{
   })
 })
 
-router.get("/:id", (req, res) =>{
+router.get("/:id",(req, res) =>{
   const id = req.params.id;
 
   Recipes.getByRecipeId(id)
@@ -71,7 +71,7 @@ router.put("/:id", (req, res) =>{
   Recipes.update(id, changes)
   .then(updatedRecipe => {
     if(updatedRecipe){
-      Recipes.getByRecipeId(updatedRecipe)
+      Recipes.getByRecipeId(id)
       .then(newRecipe =>{
         res.status(200).json(newRecipe)
       })
